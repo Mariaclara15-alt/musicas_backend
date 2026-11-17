@@ -15,21 +15,52 @@ const sql = mysql2.createPool({
     database: process.env.NOME_BANCO
 })
 
-app.get("/", (request, response) => { 
+app.get("/", (request, response) => {
     const comandoSelect = "SELECT * FROM musicas_mariaclara"
 
     sql.query(comandoSelect, (error, data) => { 
-    if (error) {
-        console.log(error)
-        return
-    }
-
-    response.json(data)})
-    
+        if (error){
+            console.log(error)
+            return
+        }
+        response.json(data)
     })
+        
+ })
+
+ app.post("/cadastrar", (request, response) => {
+    const { titulo, artista, genero, ano, duracao } = request.body
+
+    const comandoInsert = "INSERT INTO musicas_mariaclara(titulo, artista, genero, ano, duracao) VALUES (?, ?, ?, ?, ?)"
+
+    sql.query(comandoInsert, [titulo, artista, genero, ano, duracao], (error) => {
+        if (error) {
+            console.log(error)
+            return
+        }
+
+        response.status(201).json({ mensagem: "Música cadastrada com sucesso!" })
+    })
+})
 
 app.listen (3000, () => {
-    console.log("Servidor rodando na porta 3000!")
+    console.log("Servidor online!")
 })
 
 export default app
+
+
+app.delete("/apagar/:id", (request, response) => {
+    const { id } = request.params
+
+    const comandoDelete = "DELETE FROM musicas_mariaclara WHERE id = ?"
+
+    sql.query(comandoDelete, [id], (error) => {
+        if (error) {
+            console.log(error)
+            return
+        }
+
+        response.json({ mensagem: "Música apagada com sucesso!" })
+    })
+})
