@@ -43,13 +43,6 @@ app.get("/", (request, response) => {
     })
 })
 
-app.listen (3000, () => {
-    console.log("Servidor online!")
-})
-
-export default app
-
-
 app.delete("/apagar/:id", (request, response) => {
     const { id } = request.params
 
@@ -64,3 +57,13 @@ app.delete("/apagar/:id", (request, response) => {
         response.json({ mensagem: "Música apagada com sucesso!" })
     })
 })
+
+
+
+app.listen (3000, () => {
+    console.log("Servidor online!")
+})
+
+export default app
+
+
