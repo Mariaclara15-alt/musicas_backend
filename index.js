@@ -77,7 +77,7 @@ app.put("/editar/:id", (request, response) => {
     const { id } = request.params
     const { titulo, artista, genero, ano, duracao } = request.body
 
-    const comandoUpdate = "UPDATE musicas_seunome SET titulo = ?, artista = ?, genero = ?, ano = ?, duracao = ? WHERE id = ?"
+    const comandoUpdate = "UPDATE musicas_mariaclara SET titulo = ?, artista = ?, genero = ?, ano = ?, duracao = ? WHERE id = ?"
 
     sql.query(comandoUpdate, [titulo, artista, genero, ano, duracao, id], (error) => {
         if (error) {
